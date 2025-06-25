@@ -1,4 +1,4 @@
-const API = import.meta.env.VITE_API_URL || "https://aetheris-backend.onrender.com";
+const API = import.meta.env.VITE_API_URL || "https://aetheris-backend.onrender.com/";
 const BASE_URL = `${API}/usuario`;
 
 async function request(endpoint = '', options = {}) {

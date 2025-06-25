@@ -11,16 +11,21 @@ const sanitize = (obj) =>
         })
     );
 
-export async function getFacturas() {
+export async function getFacturas(retries = 2) {
     try {
         const response = await fetch(BASE);
         if (!response.ok) throw new Error('Error al obtener facturas');
         return await response.json();
     } catch (error) {
         console.error('Error en getFacturas:', error);
+        if (retries > 0) {
+            await new Promise((res) => setTimeout(res, 3000)); // espera 3s
+            return getFacturas(retries - 1);
+        }
         return [];
     }
 }
+
 
 export async function getFactura(id) {
     try {

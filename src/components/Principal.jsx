@@ -19,7 +19,8 @@ const Principal = () => {
         
           {/* <img src="/fumada.png" alt="Logo personaje" className="navbar-logo-image" />         */}
         
-        <p>Aetheris</p>
+        <h1>Aetheris</h1>
+        <p>   </p>
         </div>
 
           

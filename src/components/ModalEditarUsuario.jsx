@@ -25,8 +25,6 @@ const ModalEditarUsuario = ({ id, onClose, onEditado }) => {
     if (id) cargar();
   }, [id]);
 
-  // ... resto igual
-
   const manejarEnvio = async (e) => {
     e.preventDefault();
 

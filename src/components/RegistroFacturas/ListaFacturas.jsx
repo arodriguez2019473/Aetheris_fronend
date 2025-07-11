@@ -1,16 +1,19 @@
-import React, { useState, useEffect } from "react";
+import { useState, useEffect } from "react";
+import ModalRegistroFacturas from "./ModalRegistroFacturas";
 import { getFacturas } from "../../api/facturaApi";
 import "./ListaFacturas.css";
 import { useNavigate } from "react-router-dom";
 
 const ListaFacturas = () => {
   const [facturas, setFacturas] = useState([]);
+  const [modalisOpen, setModalisOpen] = useState(false);
+  const [facturaSeleccionada, setFacturaSeleccionada] = useState(null);
   const navigate = useNavigate();
 
   useEffect(() => {
     const fetchFacturas = async () => {
       try {
-        const data = await getFacturas(); // ← ya viene en camelCase
+        const data = await getFacturas();
         setFacturas(data);
       } catch (err) {
         console.error(err);
@@ -20,7 +23,10 @@ const ListaFacturas = () => {
     fetchFacturas();
   }, []);
 
-  const handleFacturaClick = (id) => navigate(`/factura/${id}`);
+  const handleFacturaClick = (factura) => {
+    setFacturaSeleccionada(factura);
+    setModalisOpen(true);
+  } 
 
   return (
     <div className="lista-facturas">
@@ -44,7 +50,7 @@ const ListaFacturas = () => {
           <div
             key={factura.id}
             className="factura-card"
-            onClick={() => handleFacturaClick(factura.id)}
+            onClick={() => handleFacturaClick(factura)}
           >
             <h3>{factura.nombre_factura}</h3>
             <p>
@@ -62,6 +68,15 @@ const ListaFacturas = () => {
           </div>
         ))}
       </div>
+
+        {facturaSeleccionada && (          
+          <ModalRegistroFacturas
+            isOpen={modalisOpen}
+            onRequestClose={() => setModalisOpen(false)} 
+            factura={facturaSeleccionada}
+            setFacturas={setFacturas}
+          />
+        )}
     </div>
   );
 };

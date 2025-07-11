@@ -28,8 +28,6 @@
     animation: fadeIn 0.3s ease-in-out;
 }
 
-
-/* Animación suave al aparecer */
 @keyframes fadeIn {
     from {
         transform: scale(0.95);
